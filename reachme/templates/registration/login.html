@@ -1,0 +1,31 @@
+{% extends "registration/base.html" %}
+{% block title %}Login{% endblock title %}
+{% block body %}
+<body class="background">
+    <div class="alert alert-success" role="alert">
+        <p> This is only for government servants. If you want to register complaints then <a href="/">click here! </a>
+        </p>
+    </div>
+    <div class="container">
+        <div class="black-box p-5">
+            <center>
+                <h2>Login</h2>
+                <br>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success btn-md">Login</button>
+                </form>
+
+                <div class="m-3">
+                    <p>If you don't have account yet then click : <a class="btn btn-success btn-md"
+                            href="/servant/register/" role="button">create account</a> </p>
+                    <a href="/servant/accounts/password_reset/" role="button">forget password</a>
+                </div>
+                <a href="/">Back to home page</a>
+            </center>
+        </div>
+    </div>
+    <br>
+</body>
+{% endblock %}

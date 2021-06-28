@@ -1,0 +1,164 @@
+{% extends "socialshout/basic.html" %}
+{% block title %}SocialShout{% endblock title %}
+{% block head %}
+<script>
+  function trace() {
+    console.log("Enter");
+    const cust_id = document.getElementById('trackid').value;
+    console.log(cust_id);
+
+    var url = '/tracker/'
+    fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({
+          'cust_id': cust_id
+        })
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        //  location.reload()
+        console.log("data");
+        var data1 = JSON.parse(data)
+        console.log(data1.abort_reason);
+        if (data1.progress == -100) {
+          document.getElementById('complaintmessage').innerHTML = `<p id="error_msg" style="color:red;text-align:center;font-size:20px">`+data1.abort_reason+`</p>`
+        } else {
+               if(data1.progress == 25){
+                 document.getElementById('complaintmessage').innerHTML = `<div class="progress m-4" style="height: 30px">
+                <div class="progress-bar" role="progressbar" style="width:`+data1.progress+`%;" aria-valuenow="`+data1.progress+`" aria-valuemin="0" aria-valuemax="100">`+data1.progress+`%</div>
+              </div><br><p id="error_msg" style="color:white;text-align:center;font-size:20px">`+"Your complaint have been reached to the servant"+`</p>`
+               }
+               else if(data1.progress == 50){
+                document.getElementById('complaintmessage').innerHTML = `<div class="progress m-4" style="height: 30px">
+                <div class="progress-bar" role="progressbar" style="width:`+data1.progress+`%;" aria-valuenow="`+data1.progress+`" aria-valuemin="0" aria-valuemax="100">`+data1.progress+`%</div>
+              </div><br><p id="error_msg" style="color:white;text-align:center;font-size:20px">`+"Your complaint is viewed by the servant."+`</p>`
+               }
+               else if(data1.progress == 75){
+                document.getElementById('complaintmessage').innerHTML = `<div class="progress m-4" style="height: 30px">
+                <div class="progress-bar" role="progressbar" style="width:`+data1.progress+`%;" aria-valuenow="`+data1.progress+`" aria-valuemin="0" aria-valuemax="100">`+data1.progress+`%</div>
+              </div><br><p id="error_msg" style="color:green;text-align:center;font-size:20px">`+"Your work is under progress."+`</p>`
+               }
+               else if(data1.progress == 100){
+                document.getElementById('complaintmessage').innerHTML = `<div class="progress m-4" style="height: 30px">
+                <div class="progress-bar" role="progressbar" style="width:`+data1.progress+`%;" aria-valuenow="`+data1.progress+`" aria-valuemin="0" aria-valuemax="100">`+data1.progress+`%</div>
+              </div><br><p id="error_msg" style="color:green;text-align:center;font-size:20px">`+"Congratulations! Your work is completed."+`</p>`
+               }
+        }
+      });
+  }
+</script>
+{% endblock %}
+{% block body %}
+<header id="header" class="fixed-top">
+  <div class="container d-flex align-items-center">
+    <h1 class="logo me-auto"><a href="#hero">SOCIALSHOUT</a></h1>
+    <nav id="navbar" class="navbar order-last order-lg-0">
+      <ul>
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact" data-toggle="tooltip" data-placement="bottom"
+            title="Track the progress of your registered complaint here!">Tracker</a></li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
+    <a href="/servant/accounts/login/" class="get-started-btn" data-toggle="tooltip" data-placement="bottom"
+      title="This is only for Government Servents">Login</a>
+
+  </div>
+  {% if messages %}
+  {% for message in messages %}
+  {% if message.tags == 'success' %}
+  <div class="alert alert-success" style="text-align: center;" role="alert">
+    {{message}}
+  </div>
+  {% endif %}
+  {% if message.tags == 'error' %}
+  <div class="alert alert-danger" style="text-align: center;" role="alert">
+    {{message}}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</header><!-- End Header -->
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex justify-content-center align-items-center">
+  <div class="container position-relative">
+    <h1>To register your complaints</h1>
+    <marquee behavior="alternate" direction="right">
+      <h2>Fake Complaints will charge a fine of Rs 3000/- to the complainer!</h2>
+    </marquee>
+    <a href="/problems/" class="btn-get-started">Click me!</a>
+  </div>
+</section><!-- End Hero -->
+<main id="main">
+  <!-- ======= Breadcrumbs ======= -->
+  <div id="about" class="breadcrumbs">
+    <div class="container">
+      <h2>About SocialShout</h2>
+      <p>People face many day-to-day problems related to water, road, electricity, safety etc. Even after registering
+        for the problems, it takes a lot of time to be solved. Due to this inefficiency of government servents, people
+        have set their minds to think that "the Government always takes too much time to solve the people's problem."
+        This web-app is built to change this mindset and to solve the problems of the people of the country. Their
+        problems will be solved within the alloted time according to the seriousness of the issues.</p>
+    </div>
+  </div><!-- End Breadcrumbs -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="row mt-5">
+        <div class="col-lg-4">
+          <div class="info">
+
+            <div class="address">
+              <i class="bi bi-geo-alt"></i>
+              <h4>Location:</h4>
+              <p>Government College of Engineering, Aurangabad</p>
+            </div>
+
+            <div class="email">
+              <i class="bi bi-envelope"></i>
+              <h4>Email:</h4>
+              <p>akshitakhandelwal06@gmail.com</p>
+            </div>
+
+            <div class="phone">
+              <i class="bi bi-phone"></i>
+              <h4>Call:</h4>
+              <p>1234567890</p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-8 mt-5 mt-lg-0">
+          <h1 class="contact-head">Track your Complaint</h1>
+
+          <div class="email-form">
+            <div class="row">
+              <center>
+                <div class="col-md-6 form-group">
+                  <input type="number" name="trackid" class="form-control" id="trackid"
+                    placeholder="Enter your complaint-id" required>
+                </div>
+              </center>
+            </div>
+            <br>
+            <div class="text-center"><button onclick="return trace()" type="submit">Track your Complaint</button></div>
+            <br>
+            <div id="complaintmessage"> </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Contact Section -->
+  <div class="alert alert-primary" role="alert">
+    <a href="#" class="alert-link"> If you have any doubt then contact us. Our contact details are given above. Also if
+      you need to add any social problem then you can email us.</a>
+  </div>
+
+  {% endblock body%}

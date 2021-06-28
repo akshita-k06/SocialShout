@@ -1,0 +1,57 @@
+{% extends "socialshout/basic.html" %}
+{% block title %}OTP Verification{% endblock title %}
+{% block body %}
+<div class="otp_verify">
+<div class="alert alert-success" role="alert">
+    <p class="mb-0">
+      <b> We've emailed you OTP for Verification of your Complaint.</b> 
+      </p>
+      <hr>
+      <p >
+        If you don't receive an email, please make sure you've entered the correct email address,
+        also check your spam folder.
+      </p>
+</div>
+<div class="container">
+  {% if messages %}
+  {% for message in messages %}
+  {% if message.tags == 'success' %}
+  <div class="alert alert-success" style="text-align: center;" role="alert">
+      {{message}}
+  </div>
+  {% endif %}
+  {% if message.tags == 'error' %}
+  <div class="alert alert-danger" style="text-align: center;" role="alert">
+      {{message}}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+    <h3 class="text-center">Verfiy Your Complaint</h3>
+<hr style="color: white;">
+<br>
+<form action="/verify/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <center>
+    <div class="form-group col-4">
+      <label for="email1">Email</label>
+      <br>
+      <input type="email" name="email1" id="email1" class="form-control" value="{{complaint_email}}" disabled>
+    </div>
+    <br>
+    <div class="form-group col-4">
+      <label for="otp">OTP</label>
+      <br>
+      <input type="password" class="form-control" id="otp" name="otp" placeholder="Enter your OTP.">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-warning">Submit</button>
+</center>
+    <br>
+  </form>
+
+</div>
+</div>
+
+{% endblock body %}

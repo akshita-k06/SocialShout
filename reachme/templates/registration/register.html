@@ -1,0 +1,164 @@
+{% extends "registration/base.html" %}
+{% block title %}Register{% endblock title %}
+<script>
+  var _validFileExtensions = [".pdf"];
+
+  function validateform() {
+    const fi = document.getElementById('id_upload_aadhar');
+    const fi1 = document.getElementById('id_upload_id');
+
+    // Check if any file is selected. 
+    if (fi.files.length > 0) {
+      fileName = fi.value;
+      extension = fileName.split('.').pop();
+      if (extension == "pdf") {
+        for (const i = 0; i <= fi.files.length - 1; i++) {
+
+          const fsize = fi.files.item(i).size;
+          const file = Math.round((fsize / 1024));
+          // The size of the file. 
+          if (file > 2100) {
+            alert(
+              "File too Big, please select a file less than 2mb");
+            return false;
+          } else if (file < 100) {
+
+            alert(
+              "File too small, please select a file greater than 100kb");
+            return false;
+          }
+        }
+      } else {
+        alert(
+          "File is invalid , please select a pdf file");
+        return false;
+      }
+    }
+    // Check if any file is selected. 
+    if (fi1.files.length > 0) {
+      fileName = fi.value;
+      extension = fileName.split('.').pop();
+      if (extension == "pdf") {
+
+        for (const i = 0; i <= fi1.files.length - 1; i++) {
+
+          const fsize = fi1.files.item(i).size;
+          const file = Math.round((fsize / 1024));
+          // The size of the file. 
+          if (file >= 2100) {
+            alert(
+              "File too Big, please select a file less than 2mb");
+            return false;
+          } else if (file < 100) {
+
+            alert(
+              "File too small, please select a file greater than 100kb");
+            return false;
+          }
+        }
+      } else {
+        alert(
+          "File is invalid , please select a pdf file");
+        return false;
+      }
+    }
+  }
+</script>
+{% block body %}
+<body class="background">
+  {% if messages %}
+  {% for message in messages %}
+  {% if message.tags == 'success' %}
+  <div class="alert alert-success" style="text-align: center;" role="alert">
+      {{message}}
+  </div>
+  {% endif %}
+  {% if message.tags == 'error' %}
+  <div class="alert alert-danger" style="text-align: center;" role="alert">
+      {{message}}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  <div class="container">
+    <br>
+    <div class="black-box p-3">
+      <center>
+        <h2>Create Account</h2>
+        <center>
+          <form action="/servant/register/" method="post" onsubmit="return validateform()" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+              <div class="form-group col-lg-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mt-2">
+                <label for="text">First Name:</label><br>
+                <input type="text" name="firstname" class="form-control" placeholder="eg. ramesh" id="name1" required>
+              </div>
+              <div class="form-group col-lg-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mt-2">
+                <label for="text">Last Name(Surname):</label><br>
+                <input type="text" name="lastname" class="form-control" placeholder="eg. gupta" id="name2" required>
+              </div>
+              <div class="form-group col-lg-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mt-2">
+                <label for="email">Email address:</label><br>
+                <input type="email" name="email" class="form-control" placeholder="Enter email" id="email" required>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="form-group col-lg-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mt-2">
+                <label for="aadharno">Aadhar number:</label>
+                <input type="text" name="aadharno" id="aadharno" class="form-control"
+                    placeholder="Enter your aadhar card number" required>
+              </div>
+              <div class="form-group col-lg-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mt-2">
+                <label for="phone">Mobile No:</label><br>
+                <input type="number" name="phoneno" class="form-control" placeholder="Enter mobile no" id="phoneno"
+                  required>
+              </div>
+              <div class="form-group col-lg-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mt-2">
+              <label for="user_role">Designation:</label>
+              <select name="user_role" id="user_role" class="form-control" required>
+                <option selected>Choose...</option>
+                <option>1-MSEB Chief Engineer</option>
+                <option>2-Health Department</option>
+                <option>3-Water Conservation officer</option>
+                <option>4-Municipal corporation</option>
+                <option>5-Department Safety Officer</option>
+              </select>
+            </div>
+            </div>
+            <br>
+            <!-- <div class="row">
+              <div class="form-group col-lg-4 col-xl-4 col-md-6 col-sm-12 col-xs-12 mt-2">
+                <label for="pwd">Password:</label><br>
+                <input type="password" name="password1" class="form-control" placeholder="Enter password" id="password1"
+                  required>
+              </div>
+              <div class="col-lg-2 col-xl-2 mt-2"></div>
+              <div class="form-group col-lg-4 col-xl-4 col-md-6 col-sm-12 col-xs-12 mt-2">
+                <label for="pwd">Confirm Password:</label><br>
+                <input type="password" name="password2" class="form-control" placeholder="Enter Re-password" id="password2"
+                  required>
+              </div>
+            </div> -->
+            <br>
+            <div class="form-group">
+              <label for="id_upload_aadhar">Upload your Aadhar card image</label>
+              <input type="file" class="form-control-file1" id="id_upload_aadhar" name="id_upload_aadhar" required>
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="id_upload_id">Upload your Government id to assign you as an incharge.</label>
+              <input type="file" class="form-control-file1" id="id_upload_id" name="id_upload_id" required>
+            </div>
+            <br>
+            <center><button type="submit" class="btn btn-success btn-md">Register</button></center>
+          </form>
+          <br>
+          <center>
+            <a href="/">Back to Home page</a>
+          </center>
+    </div>
+  </div>
+<br>
+</body>
+{% endblock body %}

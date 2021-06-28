@@ -1,0 +1,118 @@
+{% extends "socialshout/basic.html" %}
+{% block title %}Dashboard{% endblock title %}
+{% block head %}
+<script>
+  function trackerUpdate(complaintId,status,reason) {
+    var url = '/complaint/update/complaint/tracker/'
+      fetch(url, {
+        method:'POST',
+        headers:{
+        'Content-Type':'application/json',
+        'X-CSRFToken':csrftoken,
+      }, 
+  body:JSON.stringify({'complaintId':complaintId, 'complaintstatus':status,'reason':reason})
+})
+.then((response) => {
+   return response.json();
+})
+.then((data) => {
+    location.reload()
+});      
+  }
+    function funcview(ComplaintId){
+    var c1 = confirm("The task is viewed thoroughly!");
+    if (c1 == true) {
+      trackerUpdate(ComplaintId,50,null);
+    }
+    return false;
+  }
+  function funcprog(ComplaintId){
+    var c1 = confirm("The task is under progress!");
+    if (c1 == true) {
+      trackerUpdate(ComplaintId,75,null);
+    }
+    return false;
+  }
+  function funccomp(ComplaintId){
+    var c1 = confirm("The status of the task will get changed to completed!");
+    if (c1 == true) {
+      trackerUpdate(ComplaintId,100,null);
+    }
+    return false;
+  }
+  function funcabort(ComplaintId){
+    var reason = prompt("Enter Abort reason");
+    var c1 = confirm("The process will get aborted!");
+    if (c1 == true) {
+      trackerUpdate(ComplaintId,-100,reason);
+    }
+    return false;
+  }
+  
+</script>
+{% endblock %}
+{% block body %}
+
+<body class="dashboard">
+  <div class="alert alert-primary" role="alert">
+    <a href="#" class="alert-link">Solve every problem according to their priority. 1 priority means that problem needs to be solve within 1 day. Similarly 2 priority means it needs to be solved within 2 days and so on.</a><br>
+  </div>
+  <div class="alert alert-danger" role="alert">
+    <a href="#" class="alert-link"> If the problem is not solved according to the priority, serious action will be taken againts you. (If you have any reason then please mention it before deadline of the particular problem).</a><br>
+  </div>
+  <div class="container">
+    <br>
+    <center>
+      <h1>Dashboard</h1>
+    </center>
+    <br>
+    <div class="container">
+      <a class="btn btn-success btn-md" href="{% url 'logout' %}" role="button">Logout</a></div>
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+      {% for comp in complaintuser %}
+      {% for i in comp %}
+      {% if i.progress == 25 or i.progress == 50 or i.progress == 75 %}
+      <div class="card m-4">
+        <span class="advanced"></span>
+        <center>
+          <br>
+          <button class="btn btn-warning">Priority-{{i.complaint_subcat.priority}}</button>
+          <p>Situation Image:</p>
+          <img src="/{{i.complaint_spotimage}}" style="width: 300px; height: 300px" class="card-img-top" alt="...">
+          <div class="card-body">
+            <b>
+              <p class="card-title"><span>Name: </span>{{i.full_name}}</p>
+            </b> 
+            <p class="card-text"><span>Complaint-id: </span>{{i.id}}</p>
+            <p class="card-text"><span>Email-id: </span>{{i.email}}</p>
+            <p class="card-text"><span>Address: </span>{{i.address}}</p>
+            <p class="card-text"><span>Aadhar Number: </span>{{i.aadhar_no}}</p>
+            <p class="card-text"><span>Contact Number : </span>{{i.phone}}</p>
+            <p class="card-text"><span>Alternate Contact Number: </span>{{i.alternative_phone}}</p>
+            <p class="card-text"><span>State: </span>{{i.state}}</p>
+            <p class="card-text"><span>City: </span>{{i.city}}</p>
+            <p class="card-text"><span>Pincode: </span> {{i.pincode}}</p>
+            <p class="card-text"><span>Complaint category: </span> {{i.complaint_subcat.subcategory}}</p>
+            <p class="card-text"><span>Description about the situation: </span>{{i.complaint_info}}</p>
+            {% if i.progress == 25 %}
+            <a href="#" id="Viewed" onclick="return funcview('{{i.id}}')" class="btn btn-success">Viewed</a>
+            {% elif i.progress == 50 %}
+            <a href="#" id="In-progress" onclick="return funcprog('{{i.id}}')" class="btn btn-dark">In progress</a>
+            {% else %}
+             <a href="#" id="completed" onclick="return funccomp('{{i.id}}')" class="btn btn-success">Completed</a>
+            {% endif %}
+            <a href="#" id="abort" onclick="return funcabort('{{i.id}}')" class="btn btn-danger">Abort</a>
+          
+        </center>
+
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+  </div>
+  </section><!-- End Pricing Section -->
+  </div>
+  </div>
+</body>
+{% endblock %}

@@ -1,0 +1,677 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  background-color: black;
+}
+
+a {
+  color: #5fcf80;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #86db9f;
+  text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+  # Disable aos animation delay on mobile devices
+  --------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
+}
+
+/*--------------------------------------------------------------
+  # Header
+  --------------------------------------------------------------*/
+#header {
+  background: #000;
+  transition: all 0.5s;
+  z-index: 997;
+  padding: 20px 0;
+}
+
+#header .logo {
+  font-size: 35px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Sofia', cursive;
+}
+
+#header .logo a {
+  color: #5fcf80;
+}
+
+
+
+/**
+  * Get Startet Button 
+  */
+.get-started-btn {
+  margin-left: 22px;
+  background: #5fcf80;
+  color: #fff;
+  border-radius: 50px;
+  padding: 8px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 16px;
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+}
+
+.get-started-btn:hover {
+  background: #3ac162;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .get-started-btn {
+    margin: 0 15px 0 0;
+    padding: 6px 18px;
+  }
+}
+
+/*--------------------------------------------------------------
+  # Navigation Menu
+  --------------------------------------------------------------*/
+/**
+  * Desktop Navigation 
+  */
+.navbar {
+  padding: 0;
+}
+
+.navbar ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.navbar li {
+  position: relative;
+}
+
+.navbar a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 10px 30px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.navbar a i {
+  font-size: 14px;
+  line-height: 0;
+  margin-left: 5px;
+}
+
+.navbar a:hover,
+.navbar .active,
+.navbar li:hover>a {
+  color: #5fcf80;
+}
+[class^="bi-"]::before, [class*=" bi-"]::before{
+  color:#fff;
+}
+/**
+  * Mobile Navigation 
+  */
+.mobile-nav-toggle {
+  color: #000;
+  font-size: 28px;
+  cursor: pointer;
+  display: none;
+  line-height: 0;
+  transition: 0.5s;
+}
+
+.mobile-nav-toggle.bi-x {
+  color: #fff;
+}
+
+@media (max-width: 991px) {
+  #header .logo {
+    font-size: 25px;
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  .navbar ul {
+    display: none;
+  }
+}
+
+.navbar-mobile {
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(32, 38, 34, 0.9);
+  transition: 0.3s;
+  z-index: 999;
+}
+
+.navbar-mobile .mobile-nav-toggle {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.navbar-mobile ul {
+  display: block;
+  position: absolute;
+  top: 55px;
+  right: 50px;
+  bottom: 320px;
+  left: 15px;
+  padding: 10px 0;
+  border-radius: 6px;
+  background-color: #000;
+  overflow-y: auto;
+  transition: 0.3s;
+}
+
+.navbar-mobile a {
+  padding: 10px 20px;
+  font-size: 17px;
+  color: #fff;
+  font-family: 'Roboto Slab', serif;
+}
+
+.navbar-mobile a:hover,
+.navbar-mobile .active,
+.navbar-mobile li:hover>a {
+  color: #5fcf80;
+}
+
+.navbar-mobile .getstarted {
+  margin: 15px;
+}
+
+/*--------------------------------------------------------------
+  # Hero Section
+  --------------------------------------------------------------*/
+#hero {
+  width: 100%;
+  height: 100vh;
+  background: url("../img/img5.jpg") top center;
+  background-size: cover;
+  position: relative;
+}
+
+#hero:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#hero .container {
+  padding-top: 72px;
+}
+
+@media (max-width: 992px) {
+  #hero .container {
+    padding-top: 62px;
+    z-index: 10;
+  }
+}
+
+#hero h1 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #eee;
+  font-family: 'Sofia', cursive;
+}
+
+#hero h2 {
+  color: white;
+  margin: 10px 0 0 0;
+  font-size: 18px;
+}
+
+#hero .btn-get-started {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 35px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin-top: 30px;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+#hero .btn-get-started:hover {
+  background-color: #5fcf80;
+  border: none;
+}
+
+@media (min-width: 1024px) {
+  #hero {
+    background-attachment: fixed;
+  }
+}
+
+@media (max-width: 768px) {
+  #hero {
+    height: 100vh;
+  }
+
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  #hero h2 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+/*--------------------------------------------------------------
+# About Socialshout
+--------------------------------------------------------------*/
+.breadcrumbs {
+
+  background-color: black;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 40px 0;
+  color: #fff;
+}
+
+@media (max-width: 992px) {
+  .breadcrumbs {
+    margin-top: 63px;
+  }
+}
+
+.breadcrumbs h2 {
+  font-size: 40px;
+  font-weight: 500;
+  color: #5fcf80;
+  font-family: 'Sofia', cursive;
+}
+
+.breadcrumbs p {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# Contact
+--------------------------------------------------------------*/
+.contact {
+  padding-top: 10px;
+  padding-bottom: 30px;
+  background: url("../img/img4.jpg")bottom center;
+  background-size: cover;
+}
+.contact .mov{
+color:white;
+}
+.contact .info {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.contact .info i {
+  font-size: 20px;
+  color: #000;
+  float: left;
+  width: 44px;
+  height: 44px;
+  background: #5fcf80;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+.contact .info h4 {
+  padding: 0 0 0 60px;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+.contact .info p {
+  padding: 0 0 0 60px;
+  margin-bottom: 0;
+  font-size: 14px;
+  color: #000;
+  font-weight: 600;
+}
+
+.contact .info .email,
+.contact .info .phone {
+  margin-top: 40px;
+}
+
+.contact .info .email:hover i,
+.contact .info .address:hover i,
+.contact .info .phone:hover i {
+  background: #5fcf80;
+  color: #fff;
+}
+
+.contact .contact-head {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 60px;
+  color: #000;
+  font-family: 'Sofia', cursive;
+  font-weight: 600;
+}
+
+.contact .email-form {
+  padding-top: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 40px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6)
+}
+
+.contact .email-form .form-group {
+  padding-bottom: 8px;
+}
+
+.contact .email-form .error-message {
+  display: none;
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.contact .email-form .error-message br+br {
+  margin-top: 25px;
+}
+
+.contact .email-form .sent-message {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.contact .email-form .loading {
+  display: none;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+}
+
+.contact .email-form .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #18d26e;
+  border-top-color: #eee;
+  -webkit-animation: animate-loading 1s linear infinite;
+  animation: animate-loading 1s linear infinite;
+}
+
+.contact .email-form input,
+.contact .email-form textarea {
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 14px;
+}
+
+.contact .email-form input:focus,
+.contact .email-form textarea:focus {
+  border-color: #5fcf80;
+}
+
+.contact .email-form input {
+  height: 44px;
+}
+
+.contact .email-form textarea {
+  padding: 10px 12px;
+}
+
+.contact .email-form button[type="submit"] {
+  background: #5fcf80;
+  border: 0;
+  padding: 10px 35px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.contact .email-form button[type="submit"]:hover {
+  background: #3ac162;
+}
+
+@-webkit-keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*--------------------------------------------------------------
+# Problems
+--------------------------------------------------------------*/
+.problem-body {
+  background-color: white;
+}
+
+.problem-container {
+  width: 100%;
+  height: 100%;
+  background: url("../img/img4.jpg") center;
+  background-size: cover;
+  position: relative;
+  background-repeat: no-repeat;
+  margin-bottom: 50px;
+}
+
+.problem-text {
+  font-family: 'Sofia', cursive;
+  font-size: 40px;
+  color: black;
+  font-weight: 800;
+}
+
+/*--------------------------------------------------------------
+#sub Problems
+--------------------------------------------------------------*/
+.subproblem {
+  width: 100%;
+  height: 100%;
+  background: url("../img/img4.jpg") top center;
+  background-size: cover;
+  position: relative;
+  background-repeat: no-repeat;
+}
+
+.subcontainer {
+  margin-top: 10%;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 70%;
+}
+
+.subproblem-text {
+  color: white;
+  font-family: 'Sofia', cursive;
+  font-size: 40px;
+}
+
+.subcontainer a {
+  color: white;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+/*--------------------------------------------------------------
+# Registration
+--------------------------------------------------------------*/
+.reg {
+  width: 100%;
+  height: 100vh;
+  background: url("../img/img7.jpg") top center;
+  background-size: cover;
+  position: relative;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.reg .reghead {
+  color: white;
+  font-family: 'Sofia', cursive;
+  font-size: 50px;
+}
+
+.reg label {
+  color: white;
+  font-size: 16px;
+}
+
+/*--------------------------------------------------------------
+# OTP verification
+--------------------------------------------------------------*/
+.otp_verify {
+  width: 100%;
+  height: 100vh;
+  background: url("../img/img7.jpg") top center;
+  background-size: cover;
+  position: relative;
+  font-weight: 800;
+  font-family: 'Roboto Slab', serif;
+}
+
+.otp_verify h3 {
+  color: white;
+  font-family: 'Sofia', cursive;
+  font-size: 50px;
+}
+
+.otp_verify label {
+  color: white;
+  font-size: 16px;
+}
+
+/*--------------------------------------------------------------
+# LOGIN form
+--------------------------------------------------------------*/
+.background {
+  width: 100%;
+  background: url("../img/img7.jpg") top center;
+  background-size: cover;
+  position: relative;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+}
+
+.background h2 {
+  font-family: 'Sofia', cursive;
+  font-size: 50px;
+}
+
+.background .black-box {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/*--------------------------------------------------------------
+# Dashboard
+--------------------------------------------------------------*/
+.dashboard {
+  background-color: #F3F3F3;
+}
+
+.dashboard h1 {
+  color: #000;
+  font-family: 'Sofia', cursive;
+  font-size: 50px;
+  font-weight: 800;
+}
+
+.pricing .card {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 800;
+  padding: 20px;
+  background: #e7e4e4;
+  text-align: center;
+  border: 1px solid #283747;
+  box-shadow: 3px 3px 5px 6px #283747;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing .card img {
+  border: 4px solid darkslategray;
+}
+
+.card .advanced {
+  width: 300px;
+  position: absolute;
+  top: 18px;
+  right: -68px;
+  transform: rotate(45deg);
+  z-index: 1;
+  padding: 2px 0 4px 0;
+  background: #283747;
+  color: #fff;
+}
+.card button{
+  font-weight: 900;
+}

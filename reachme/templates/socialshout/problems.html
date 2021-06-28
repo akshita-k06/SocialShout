@@ -1,0 +1,21 @@
+{% extends "socialshout/basic.html" %}
+{% block title %}Problems{% endblock title %}
+{% block body %}
+<body class="problem-body">
+    <div class="container mt-4"> 
+      <a class="btn btn-success btn-md" href="/" role="button">Home Page</a> 
+    </div>
+    <br>
+    {% for cat in categories %}
+    <div class="container problem-container pt-5 pb-5">
+    <div class="jumbotron">
+        <h2 class="display-4 problem-text" >If you have a problem regarding {{cat.category}}!</h2>  
+        <br>     
+          <a class="btn btn-warning btn-md" href="/problems/subproblems/{{cat.id}}" role="button">Click me!</a>        
+      </div>
+    </div>
+    {% endfor %}
+    <br>
+    </body>
+{% endblock body %}
+ 

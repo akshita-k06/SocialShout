@@ -1,0 +1,24 @@
+{% extends "socialshout/basic.html" %}
+{% block title %}SubProblems{% endblock title %}
+{% block body %}
+<body class="subproblem">
+  <div class="container mt-4">
+    <a class="btn btn-warning btn-md subbutton" href="/problems/" role="button">Previous Page</a> 
+  </div>
+<div class="container subcontainer pb-5">
+  <br>
+    <div class="jumbotron">
+     
+        <br>
+        <h2 class="display-4 subproblem-text" >If you have a problem regarding {{cat}}!</h2> 
+        <h2 class="display-4 subproblem-text" >Choose one of the following problems:</h2>  
+        {% for subcat in subcategories %}
+        <br>     
+          <a href="/problems/subproblems/registration/{{subcat.complaint_cat.id}}/{{subcat.complaint_cat.category}}/{{subcat.id}}/{{subcat.subcategory}}">{{subcat.subcategory}}</a>
+        <br>
+        {% endfor %}
+      </div>
+</div>
+<br><br>
+</body>
+{% endblock body %}

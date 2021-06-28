@@ -1,0 +1,230 @@
+{% extends "socialshout/basic.html" %}
+{% block title %}Registration{% endblock title %}
+{% block head %}
+<script>
+  var _validfileextensions = [".pdf"];
+
+  function validateform() {
+    const f1 = document.getElementById('file1');
+    const f2 = document.getElementById('file2');
+    var aadhar=document.getElementById('aadharno').value;
+    var pincode=document.getElementById('pincode').value;
+    if(aadhar.length != 12){
+      alert("Please enter valid aadhar number");
+      return False;
+    }
+    else if(pincode.length != 6){
+      alert("Please enter valid pin code");
+      return False;
+    }
+     
+    // Check if any file is selected. 
+    if (f1.files.length > 0) {
+      filename = f1.value;
+      extension = filename.split('.').pop();
+      if (extension == "png" || extension == "JPEG" || extension == "jpg" || extension == "jpeg" || extension ==
+        "gif") {
+        for (const i = 0; i <= f1.files.length; i++) {
+          const fsize = f1.files.item(i).size;
+          const file = Math.round((fsize / 1024));
+          // The size of the file. 
+          if (file > 2100) {
+            alert("file is too large, please select a file of size less than 2mb");
+            return false;
+          } else if (file < 100) {
+            alert("file is too small, please select a file of size greater than 100kb");
+            return false;
+          }
+        }
+      } else {
+        alert("File is invalid, please select a image file");
+        return false;
+      }
+    }
+    // Check if any file is selected. 
+    if (f2.files.length > 0) {
+      filename = f2.value;
+      extension = filename.split('.').pop();
+      if (extension == "png" || extension == "JPEG" || extension == "jpg" || extension == "jpeg" || extension ==
+        "gif") {
+
+        for (const i = 0; i <= f2.files.length - 1; i++) {
+
+          const fsize = f2.files.item(i).size;
+          const file = Math.round((fsize / 1024));
+          // The size of the file. 
+          if (file >= 2100) {
+            alert(
+              "File too Big, please select a file of size less than 2mb");
+            return false;
+          } else if (file < 100) {
+
+            alert(
+              "File too small, please select a file of size greater than 100kb");
+            return false;
+          }
+        }
+      } else {
+        alert(
+          "File is invalid , please select a image file");
+        return false;
+      }
+    }
+  }
+</script>
+{% endblock head %}
+{% block body %}
+
+<body class="reg">
+  <div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">We Welcome you and ready to serve you!</h4>
+    <p>Please fill the following form to register your complain.</p>
+    <hr>
+    <p class="mb-0">Please make sure that your problem is not fake, if it is so then you need to pay the fine Rs
+      3000/-(if you refuse to pay then your case will be handed over to the police).</p>
+  </div>
+  <div class="alert alert-danger" role="alert">
+    The image of the scene must be taken in selfie mode which must include your face along with the scene(As if you have
+    to take a selfie with the scene) otherwise the complaint will not be considered.
+  </div>
+{% if messages %}
+  {% for message in messages %}
+  {% if message.tags == 'success' %}
+  <div class="alert alert-success" style="text-align: center;" role="alert">
+    {{message}}
+  </div>
+  {% endif %}
+  {% if message.tags == 'error' %}
+  <div class="alert alert-danger" style="text-align: center;" role="alert">
+    {{message}}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  <div class="container">
+    <a class="btn btn-success btn-md" href="/" role="button">Home Page</a>
+    <br>
+    <h3 class="text-center reghead">Register Your Complain</h3>
+    <br>
+    <form action="/regform/{{problem_id}}/{{problem}}/{{subproblem_id}}/{{subproblem}}" method="POST"
+      onsubmit="return validateform()" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" name="fullname" id="fullname" class="form-control"
+              placeholder="Yourname Fathername Surname" required>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="xyz@something" required>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="form-group col-md-8">
+        <label for="inputaddress">Address</label>
+        <input type="text" class="form-control" id="inputaddress" name="inputaddress" rows="4"
+          placeholder="1234 Main St" required>
+      </div>
+      <br>
+      <div class="form-group col-8">
+        <label for="inputdetail">Your Complaint</label>
+        <textarea class="form-control" id="inputdetail" name="inputdetail" rows="4"
+          placeholder="Give detail about your complaint..." required></textarea>
+      </div>
+      <br>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="contactno1">Contact number</label>
+          <input type="number" name="contactno1" pattern="\d{3}[\-]\d{3}[\-]\d{4}" id="contactno1" class="form-control"
+            placeholder="Enter your contact number" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="contactno2">Alternate contact number</label>
+          <input type="number" name="contactno2" pattern="\d{3}[\-]\d{3}[\-]\d{4}" id="contactno2" class="form-control"
+            placeholder="Enter your another contact number">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="aadharno">Aadhar number</label>
+          <input type="text" name="aadharno" id="aadharno" class="form-control"
+            placeholder="Enter your aadhar card number" required>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="form-group col-md-2">
+          <label for="pincode">Pincode</label>
+          <input type="text" class="form-control" id="pincode" name="pincode" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputcity">City</label>
+          <input type="text" class="form-control" id="inputcity" name="inputcity" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputstate">State</label>
+          <select id="inputstate" name="inputstate" class="form-control custom-select" required>
+            <option selected>Choose..</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Andaman and Nicobar Islands union territory">Andaman and Nicobar Islands union territory
+            </option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chandigarh">Chandigarh</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu
+            </option>
+            <option value="Delhi">Delhi</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jammu and kashmir">Jammu and kashmir</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Ladakh">Ladakh</option>
+            <option value="Lakshadweep">Lakshadweep</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Puducherry">Puducherry </option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="file1">Upload your Aadhar card image</label>
+        <input type="file" class="form-control-file1" id="file1" name="file1" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="file2">Upload the image of scene for which you are registering the
+          complaint</label>
+        <input type="file" class="form-control-file1" id="file2" name="file2" required>
+      </div>
+      <br>
+      <center><button type="submit" class="btn btn-success btn-md">Register</button></center>
+      <br>
+    </form>
+    <br>
+  </div>
+  {% endblock body %}
