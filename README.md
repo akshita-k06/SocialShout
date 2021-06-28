@@ -1,1 +1,2 @@
-"# SocialShout" 
+People face many day-to-day problems related to water, road, electricity, safety etc. Even after registering for the problems, it takes a lot of time to be solved. Due to this inefficiency of government servents, people have set their minds to think that "the Government always takes too much time to solve the people's problem." This web-app is built to change this mindset and to solve the problems of the people of the country. Their problems will be solved within the alloted time according to the seriousness of the issues.
+
